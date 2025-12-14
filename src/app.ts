@@ -1,6 +1,8 @@
 import express, {Request, Response} from 'express';
 import initDB from './database/db';
 import { ragistrationRouter } from './modules/ragistration/ragistration.routes';
+import { loginRouter } from './modules/login/signIn.routes';
+import { userRouter } from './modules/users/users.routes';
 
 const app = express()
 
@@ -11,8 +13,14 @@ app.use(express.json())
 initDB()
 
 
-// sign up api
+// signup api
 app.use('/api/v1/auth', ragistrationRouter)
+
+//login api 
+app.use('/api/v1/auth', loginRouter) 
+
+// users api
+app.use('/api/v1/users', userRouter)
 
 //root directory
 app.get("/", (req: Request, res: Response) => {
