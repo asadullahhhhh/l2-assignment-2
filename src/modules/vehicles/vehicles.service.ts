@@ -1,5 +1,6 @@
 import {pool} from '../../database/db';
 
+// ===> Cretae vehicle 
 const createVehicles = async (payload: Record<string, unknown>) => {
     const {vehicle_name, type, registration_number, daily_rent_price, availability_status} = payload
 
@@ -23,6 +24,17 @@ const createVehicles = async (payload: Record<string, unknown>) => {
     return result.rows[0]
 }
 
+// ===> Get all vehicles 
+const getVehicles = async () => {
+    const result = pool.query(`
+            SELECT * FROM vehicles 
+        `
+    )
+
+    return result
+}
+
 export const vehiclesService = {
-    createVehicles
+    createVehicles,
+    getVehicles
 }
