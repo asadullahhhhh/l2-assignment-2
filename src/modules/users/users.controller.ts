@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import { userService } from './users.service';
 
+// ===> get all users 
 const getUsers = async (req: Request, res: Response) => {
     try{
         const result = await userService.getUsers()
@@ -26,6 +27,7 @@ const getUsers = async (req: Request, res: Response) => {
     }
 }
 
+// ===> update user
 const updateUser = async (req: Request, res: Response) => {
     try{
         const result = await userService.updateuser( req.params.id, req.body)
@@ -43,7 +45,29 @@ const updateUser = async (req: Request, res: Response) => {
     }
 }
 
+// ===> delete user 
+const deleteUser = async (req: Request, res: Response) => {
+    try{
+        const result = await userService.deleteUser(req.params.id)
+
+        if(result.rowCount === 0) {
+            throw new Error("User not found")
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully"
+        })
+    }catch(err: any) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
 export const userController = {
     getUsers,
-    updateUser
+    updateUser,
+    deleteUser
 }

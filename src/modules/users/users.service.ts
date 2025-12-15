@@ -1,6 +1,6 @@
 import { pool } from '../../database/db';
 
-// get all users 
+// ===> get all users 
 const getUsers = async () => {
     const result = await pool.query(`
             SELECT * FROM users
@@ -10,7 +10,7 @@ const getUsers = async () => {
     return result
 }
 
-
+// ===> update user
 const updateuser = async (id: string, payload: Record<string, unknown>) => {
     const {name, email, phone, role} = payload 
 
@@ -56,8 +56,18 @@ const updateuser = async (id: string, payload: Record<string, unknown>) => {
     return updatedUserData.rows[0]
 }
 
+// ===> delete user
+const deleteUser = async (id: string) => {
+    const result = await pool.query(`
+            DELETE FROM users WHERE id=$1
+        `, [id]
+    )
+
+    return result
+}
 
 export const userService = {
     getUsers,
-    updateuser
+    updateuser,
+    deleteUser
 }
