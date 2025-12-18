@@ -4,6 +4,7 @@ import { ragistrationRouter } from './modules/ragistration/ragistration.routes';
 import { loginRouter } from './modules/login/signIn.routes';
 import { userRouter } from './modules/users/users.routes';
 import {vehiclesRouter} from './modules/vehicles/vehicles.routes';
+import {bookingRouter} from './modules/booking/booking.routes';
 
 const app = express()
 
@@ -25,6 +26,9 @@ app.use('/api/v1/users', userRouter)
 
 // ===> vehicles api
 app.use('/api/v1/vehicles', vehiclesRouter)
+
+// ===> booking api
+app.use('/api/v1/bookings', bookingRouter)
 
 //root directory
 app.get("/", (req: Request, res: Response) => {
